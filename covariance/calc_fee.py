@@ -1,0 +1,13 @@
+#!/usr/bin/python
+
+import numpy as np
+
+def calc_fee(lon1, lat1, lon2, lat2):
+    '''
+    Calculate fee component
+    '''
+    lat1r = np.radians(lat1)
+    lat2r = np.radians(lat2)
+    lon12r = np.radians(lon1 - lon2)
+    fee = np.sin(lat1r) * np.sin(lat2r) * np.cos(lon12r) + np.cos(lat1r) * np.cos(lat2r)
+    return fee;
