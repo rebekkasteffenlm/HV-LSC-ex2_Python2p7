@@ -667,11 +667,11 @@ if 'collocation' in modus:
     l_new = np.empty((0, 1))
     for i in xrange(0, l.shape[1]):
         l_new = np.concatenate((l_new, np.reshape(l[:,i], (len(l), 1))), axis=0)
-    signal_xy = calc_s(Css, Czz_m1, l_new, A)
-    signal_xy_error = np.reshape(calc_ds(Css, Czz_m1, A), signal_xy.shape)
+    signal_xy = calc_s(Css, Czz_m1, l_new)
+    signal_xy_error = np.reshape(calc_ds(Css, Czz_m1), signal_xy.shape)
     if args.mov != None:
         signal_xy_error = signal_xy_error * max_l
-    noise_xy = calc_n(Cnn, Czz_m1, l_new, A)
+    noise_xy = calc_n(Cnn, Czz_m1, l_new)
     signal_xy_new = np.empty((len(l), 0))
     for i in xrange(0, l.shape[1]):
         signal_xy_new = np.concatenate((signal_xy_new, signal_xy[(i * len(l)):((i + 1) * len(l))]), axis=1)
