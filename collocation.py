@@ -733,10 +733,10 @@ if ('collocation' in modus) and (args.p != None):
     else:
         loop_cores = max_core
     if args.mov != None:
-        signal_parallel = Parallel(n_jobs=loop_cores)(delayed(calc_signal_xiyi)(x_mod, y_mod, xi_mod, yi_mod, l, Css, Czz_m1, A, function, function_parameters,
+        signal_parallel = Parallel(n_jobs=loop_cores)(delayed(calc_signal_xiyi)(x_mod, y_mod, xi_mod, yi_mod, l, Css, Czz_m1, function, function_parameters,
                           function_order, covariance_type, distance_conv, new_point_limit, k, [delta_mov, min_num, fill_val, C0_movvar, c2_ss], function_parameter) for k in xrange(num_loop))
     else:
-        signal_parallel = Parallel(n_jobs=loop_cores)(delayed(calc_signal_xiyi)(x_mod, y_mod, xi_mod, yi_mod, l, Css, Czz_m1, A, function, function_parameters,
+        signal_parallel = Parallel(n_jobs=loop_cores)(delayed(calc_signal_xiyi)(x_mod, y_mod, xi_mod, yi_mod, l, Css, Czz_m1, function, function_parameters,
                           function_order, covariance_type, distance_conv, new_point_limit, k) for k in xrange(num_loop))
     signal_xiyi = np.empty((0, l.shape[1])); signal_xiyi_error = np.empty((0, n.shape[1]))
     for k in xrange(num_loop):
