@@ -21,7 +21,6 @@ def empirical_covariance_std(x, y, data1, data2, noise1, noise2, delta, d_conv, 
     
     #Outlier removal
     rms_data1 = 3 * np.sqrt(np.sum(data1**2) / float(len(data1)))
-    rms_data2 = 3 * np.sqrt(np.sum(data2**2) / float(len(data2)))
     if len(np.where(abs(data1) > rms_data1)[0]) > 0:
         data1 = data1[np.where(abs(data1) <= rms_data1)[0]]
         x = x[np.where(abs(data1) <= rms_data1)[0]]
@@ -30,6 +29,7 @@ def empirical_covariance_std(x, y, data1, data2, noise1, noise2, delta, d_conv, 
         noise1 = noise1[np.where(abs(data1) <= rms_data1)[0]]
         noise2 = noise2[np.where(abs(data1) <= rms_data1)[0]]
         print('Outlier identified and removed')
+    rms_data2 = 3 * np.sqrt(np.sum(data2**2) / float(len(data2)))
     if len(np.where(abs(data2) > rms_data2)[0]) > 0:
         data2 = data2[np.where(abs(data2) <= rms_data2)[0]]
         x = x[np.where(abs(data2) <= rms_data2)[0]]
