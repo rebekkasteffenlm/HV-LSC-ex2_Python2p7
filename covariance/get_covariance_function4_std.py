@@ -110,7 +110,6 @@ def get_covariance_function4_std(x, y, data, noise, delta, fu, f_para, filenamei
     
     #Outlier removal
     rms_data1 = 3 * np.sqrt(np.sum(data[:,0]**2) / float(len(data)))
-    rms_data2 = 3 * np.sqrt(np.sum(data[:,1]**2) / float(len(data)))
     if len(np.where(abs(data[:,0]) > rms_data1)[0]) > 0:
         data[:,0] = data[np.where(abs(data[:,0]) <= rms_data1)[0],0]
         x = x[np.where(abs(data[:,0]) <= rms_data1)[0]]
@@ -119,6 +118,7 @@ def get_covariance_function4_std(x, y, data, noise, delta, fu, f_para, filenamei
         noise[:,0] = noise[np.where(abs(data[:,0]) <= rms_data1)[0],0]
         noise[:,1] = noise[np.where(abs(data[:,0]) <= rms_data1)[0],1]
         print('Outlier identified and removed')
+    rms_data2 = 3 * np.sqrt(np.sum(data[:,1]**2) / float(len(data)))
     if len(np.where(abs(data[:,1]) > rms_data2)[0]) > 0:
         data[:,1] = data[np.where(abs(data[:,1]) <= rms_data2)[0],1]
         x = x[np.where(abs(data[:,1]) <= rms_data2)[0]]
