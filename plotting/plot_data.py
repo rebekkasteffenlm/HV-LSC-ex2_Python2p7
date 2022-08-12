@@ -56,7 +56,7 @@ def plot_data(lon, lat, data, filename, plot_para, clabel_order, pb_plot=[0], ma
         fig_filename, b = plot_vectors(np.c_[lon, lat, data[:,clabel_order.index('EW')], data[:,clabel_order.index('NS')]], filename + clabels, plot_para[3], map)
         print 'Vector plot %s created'%(fig_filename)
         if len(comp_data) > 1:
-            fig_filename, b = plot_vectors(np.c_[map_lon, map_lat, comp_data[:,clabel_order.index('EW')], comp_data[:,clabel_order.index('NS')]], filename + clabels + '_comp', plot_para[3], map, 'red', b[0], b[1])
+            fig_filename, b = plot_vectors(np.c_[map_lon, map_lat, comp_data[:,clabel_order.index('EW')], comp_data[:,clabel_order.index('NS')]], filename + clabels + '_comp', plot_para[3], map, 'red', b[0], b[1], b[2])
             print 'Vector plot %s created'%(fig_filename)
             plt.clf()
     plt.clf()
