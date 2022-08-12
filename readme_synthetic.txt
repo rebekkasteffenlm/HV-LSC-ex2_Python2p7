@@ -29,10 +29,10 @@ python run_collocation.py -me -pp bwr n 'Velocity [mm/a]' mm/a -co EW NS -err 5 
 
 
 # LOOCV
-python run_cross-validation.py -me -pp bwr n 'Velocity [mm/a]' mm/a -co EW NS -err 5 6 -m collocation -lon 1 -dc sphere -skip 0 -lat 2 -fi syn+noise-4plates_rot_10-80_-25-40_130.dat -obs 3 4 -delta 0.5 -cf gm1 2.025 268 0.0 250 0.0 250 1.913 500 -nc 32
+python run_cross-validation.py -me -pp bwr n 'Velocity [mm/a]' mm/a -co EW NS -err 5 6 -m collocation -lon 1 -dc sphere -skip 0 -lat 2 -fi syn+noise-4plates_rot_10-80_-25-40_130.dat -obs 3 4 -delta 0.5 -cf gm1 2.025 268 0.0 250 0.0 250 1.913 500 -nc 32 -noise 0.3
 
 
 
 # Jackknife resampling
-python run_collocation.py -me -pp bwr n 'Velocity [mm/a]' mm/a -co EW NS -err 5 6 -m collocation plotting -lon 1 -dc sphere -pb 4plates_10-80_-25-40_plates.dat 4plates_10-80_-25-40_boundaries.dat 1 2 -skip 0 -lat 2 -fi syn+noise-4plates_rot_10-80_-25-40_130.dat -obs 3 4 -delta 0.5 -cf gm1 2.025 268 0.0 250 0.0 250 1.913 500 -p 'grid' 10 -25 80 41 2.0 2.0
-python run_jackknife-resampling.py -me -pp bwr n 'Velocity [mm/a]' mm/a -co EW NS -err 5 6 -m collocation -lon 1 -dc sphere -skip 0 -lat 2 -fi syn+noise-4plates_rot_10-80_-25-40_130.dat -obs 3 4 -delta 0.5 -cf gm1 2.025 268 0.0 250 0.0 250 1.913 500 -nc 40 -fn syn+noise-4plates_rot_10-80_-25-40_130_sphere_EW+NS_gm1_2.025_268_0.0_250_0.0_250_1.913_500/syn+noise-4plates_rot_10-80_-25-40_130_gm1_collocation_np2p0.dat -bo 1500
+python run_collocation.py -me -pp bwr n 'Velocity [mm/a]' mm/a -co EW NS -err 5 6 -m collocation plotting -lon 1 -dc sphere -pb 4plates_10-80_-25-40_plates.dat 4plates_10-80_-25-40_boundaries.dat 1 2 -skip 0 -lat 2 -fi syn+noise-4plates_rot_10-80_-25-40_130.dat -obs 3 4 -delta 0.5 -cf gm1 2.025 268 0.0 250 0.0 250 1.913 500 -p 'grid' 10 -25 80 41 2.0 2.0 -noise 0.3
+python run_jackknife-resampling.py -me -pp bwr n 'Velocity [mm/a]' mm/a -co EW NS -err 5 6 -m collocation -lon 1 -dc sphere -skip 0 -lat 2 -fi syn+noise-4plates_rot_10-80_-25-40_130.dat -obs 3 4 -delta 0.5 -cf gm1 2.025 268 0.0 250 0.0 250 1.913 500 -nc 40 -fn syn+noise-4plates_rot_10-80_-25-40_130_sphere_EW+NS_gm1_2.025_268_0.0_250_0.0_250_1.913_500/syn+noise-4plates_rot_10-80_-25-40_130_gm1_collocation_np2p0.dat -bo 1500 -noise 0.3
