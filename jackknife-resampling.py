@@ -96,6 +96,8 @@ parser.add_argument('-nc', action='append', nargs='*', type=int, help='Number of
 
 parser.add_argument('-fn', type=str, help='File name of grid points in results/ folder', metavar='file_name')
 
+parser.add_argument('-noise', default=0.3, type=float, help='Minimum noise level', metavar='noise_minimum')
+
 parser.add_argument('-bo', type=int, default=100000, help='Radius of the circle, which should include stations within', metavar='boundary')
 
 if (len(sys.argv) == 1) or ('--help' in sys.argv) or ('-h' in sys.argv):
@@ -213,6 +215,8 @@ for i in xrange(0, len(vars(args))):
     elif vars(args).keys()[i] == 'pb':
         continue
     elif vars(args).keys()[i] == 'm':
+        continue
+    elif vars(args).keys()[i] == 'noise':
         continue
     elif vars(args).keys()[i] == 'bo':
         continue
