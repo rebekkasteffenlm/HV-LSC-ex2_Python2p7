@@ -14,7 +14,7 @@ from covariance import *
 from plotting import *
 from rest import *
 R = 6371000
-noise_min = 0.0
+#noise_min = 0.0
 new_point_limit = 2000
 max_core = 32
 
@@ -101,6 +101,8 @@ parser.add_argument('-mb', nargs='*', help='Include if different map boundaries 
 
 parser.add_argument('-stdo', action='store_true', help='Include if correlation function should be estimated')
 
+parser.add_argument('-noise', default=0.3, type=float, help='Minimum noise level', metavar='noise_minimum')
+
 
 if (len(sys.argv) == 1) or ('--help' in sys.argv) or ('-h' in sys.argv):
     parser.print_help()
@@ -143,6 +145,7 @@ else:
     file_inp_info = [args.fi, args.skip, args.lon, args.lat, args.obs[0]]
 distance_conv = args.dc
 delta = args.delta
+noise_min = args.noise
 function = args.cf[0]
 if len(args.cf) > 1:
     function_parameter = []
@@ -558,15 +561,12 @@ if ('collocation' in modus) or ('covariance' in modus):
                                                       folder + file_inp_info[0].split('.')[0], clabel_order[0] + '+' + clabel_order[0])[0]
         while ((function_parameter[1] - starting_model[1]) > 5) or ((function_parameter[1] - starting_model[1]) < -5):
             starting_model = function_parameter
-            if (args.mov != None):
-                function_parameter = get_covariance_function4_mov(x, y, l, n, delta, delta_mov[0], min_num, function, function_parameter,
-                                                                 folder + file_inp_info[0].split('.')[0], 32)[0]
-            elif (args.stdo is True):
+            if (args.stdo is True):
                 function_parameter = get_covariance_function4_std(x, y, l, n, delta, function, function_parameter,
-                                                                 folder + file_inp_info[0].split('.')[0], 32)[0]
+                                                                 folder + file_inp_info[0].split('.')[0], max_core)[0]
             else:
                 function_parameter = get_covariance_function4(x, y, l, n, delta, function, function_parameter,
-                                                              folder + file_inp_info[0].split('.')[0], 32)[0]
+                                                              folder + file_inp_info[0].split('.')[0], max_core)[0]
         for i, j in itertools.product(xrange(0, l.shape[1]), xrange(0, l.shape[1])):
             function_parameters = np.concatenate([function_parameters, function_parameter[np.newaxis,:]])
             function_order.append([clabel_order[i] + '+' + clabel_order[j], i, j])
@@ -576,10 +576,7 @@ if ('collocation' in modus) or ('covariance' in modus):
                (clabel_order[i] != 'UP' and clabel_order[j] == 'UP'):
                 function_parameter = np.array([0, 150])
             else:
-                if (args.mov != None) and ('covariance' in modus):
-                    function_parameter = empirical_covariance_mov(x_mod, y_mod, l[:,i], l[:,j], n[:,i], n[:,j], delta, delta_mov[0], min_num, distance_conv,
-                                         function, folder + file_inp_info[0].split('.')[0], clabel_order[i] + '+' + clabel_order[j])[0]
-                elif (args.stdo is True) and ('covariance' in modus):
+                if (args.stdo is True) and ('covariance' in modus):
                     function_parameter = empirical_covariance_std(x_mod, y_mod, l[:,i], l[:,j], n[:,i], n[:,j], delta, distance_conv, function,
                                          folder + file_inp_info[0].split('.')[0], clabel_order[i] + '+' + clabel_order[j])[0]
                 else:
