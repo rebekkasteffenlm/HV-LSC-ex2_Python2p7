@@ -90,6 +90,8 @@ parser.add_argument('-pb', nargs='*', help='Include if plate boundaries should b
 parser.add_argument('-mb', nargs='*', help='Include if different map boundaries should be used for plotting\n'
                     + '(provide list of filename, longitude column, latitude column, number of rows to skip)', metavar='map_boundary')
 
+parser.add_argument('-noise', default=0.3, type=float, help='Minimum noise level', metavar='noise_minimum')
+
 parser.add_argument('-nc', type=int, default=0, help='Number of the amount of cores to be used in parallelization', metavar='number_cores')
 
 
@@ -234,6 +236,8 @@ for i in xrange(0, len(vars(args))):
     elif vars(args).keys()[i] == 'pb':
         continue
     elif vars(args).keys()[i] == 'm':
+        continue
+    elif vars(args).keys()[i] == 'noise':
         continue
     else:
         if isinstance(vars(args).values()[i], list) is True:
