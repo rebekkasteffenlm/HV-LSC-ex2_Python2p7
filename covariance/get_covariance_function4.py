@@ -110,22 +110,28 @@ def get_covariance_function4(x, y, data, noise, delta, fu, f_para, filenamei, nc
     
     #Outlier removal
     rms_data1 = 3 * np.sqrt(np.sum(data[:,0]**2) / float(len(data)))
+    rms_data2 = 3 * np.sqrt(np.sum(data[:,1]**2) / float(len(data)))
     if len(np.where(abs(data[:,0]) > rms_data1)[0]) > 0:
-        data[:,0] = data[np.where(abs(data[:,0]) <= rms_data1)[0],0]
+        data1_new = data[np.where(abs(data[:,0]) <= rms_data1)[0],0]
         x = x[np.where(abs(data[:,0]) <= rms_data1)[0]]
         y = y[np.where(abs(data[:,0]) <= rms_data1)[0]]
-        data[:,1] = data[np.where(abs(data[:,0]) <= rms_data1)[0],1]
-        noise[:,0] = noise[np.where(abs(data[:,0]) <= rms_data1)[0],0]
-        noise[:,1] = noise[np.where(abs(data[:,0]) <= rms_data1)[0],1]
+        data2_new = data[np.where(abs(data[:,0]) <= rms_data1)[0],1]
+        noise1_new = noise[np.where(abs(data[:,0]) <= rms_data1)[0],0]
+        noise2_new = noise[np.where(abs(data[:,0]) <= rms_data1)[0],1]
+        data = np.c_[data1_new, data2_new]
+        noise = np.c_[noise1_new, noise2_new]
+        del data1_new; del data2_new; del noise1_new; del noise2_new
         print('Outlier identified and removed')
-    rms_data2 = 3 * np.sqrt(np.sum(data[:,1]**2) / float(len(data)))
     if len(np.where(abs(data[:,1]) > rms_data2)[0]) > 0:
-        data[:,1] = data[np.where(abs(data[:,1]) <= rms_data2)[0],1]
+        data2_new = data[np.where(abs(data[:,1]) <= rms_data2)[0],1]
         x = x[np.where(abs(data[:,1]) <= rms_data2)[0]]
         y = y[np.where(abs(data[:,1]) <= rms_data2)[0]]
-        data[:,0] = data[np.where(abs(data[:,1]) <= rms_data2)[0],0]
-        noise[:,0] = noise[np.where(abs(data[:,1]) <= rms_data2)[0],0]
-        noise[:,1] = noise[np.where(abs(data[:,1]) <= rms_data2)[0],1]
+        data1_new = data[np.where(abs(data[:,1]) <= rms_data2)[0],0]
+        noise1_new = noise[np.where(abs(data[:,1]) <= rms_data2)[0],0]
+        noise2_new = noise[np.where(abs(data[:,1]) <= rms_data2)[0],1]
+        data = np.c_[data1_new, data2_new]
+        noise = np.c_[noise1_new, noise2_new]
+        del data1_new; del data2_new; del noise1_new; del noise2_new
         print('Outlier identified and removed')
     
     dmax = np.degrees(g.inv(np.amin(x), np.amin(y), np.amax(x), np.amax(y))[2] / float(R)) #great_circle_distance(np.amin(x), np.amax(x), np.amin(y), np.amax(y))
